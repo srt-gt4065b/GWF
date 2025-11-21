@@ -194,7 +194,7 @@
             margin-top: 20px;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
         }
@@ -203,6 +203,27 @@
             background: #ccc;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .success-message {
@@ -224,6 +245,16 @@
             margin-bottom: 15px;
         }
 
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px;
+            text-align: center;
+            display: none;
+        }
+
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 22px;
@@ -242,26 +273,26 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌍 WOOSONG CULTURE EXPO 🌍</h1>
-            <p>Experience the World at Woosong!</p>
+            <h1>🌍 우송 문화 박람회 🌍</h1>
+            <p>세계를 경험하세요!</p>
         </div>
 
         <div class="event-info">
-            <p><strong>📅 Date:</strong> November 27-28, 2025</p>
-            <p><strong>⏰ Time:</strong> 14:00 - 18:00 PM</p>
-            <p><strong>📍 Location:</strong> Endicott(W19) Yard</p>
-            <p><strong>✨ All Woosong University Students are Invited!</strong></p>
+            <p><strong>📅 일시:</strong> 2025년 11월 27-28일</p>
+            <p><strong>⏰ 시간:</strong> 오후 2시 - 6시</p>
+            <p><strong>📍 장소:</strong> 엔디컷(W19) 야드</p>
+            <p><strong>✨ 우송대학교 모든 학생 여러분을 초대합니다!</strong></p>
         </div>
 
         <form id="surveyForm" class="form-section">
             <div class="form-group">
-                <label for="studentName">이름 / Name *</label>
+                <label for="studentName">이름 *</label>
                 <input type="text" id="studentName" name="studentName" required 
-                       placeholder="홍길동 / Hong Gildong">
+                       placeholder="홍길동">
             </div>
 
             <div class="form-group">
-                <label for="studentId">학번 / Student ID *</label>
+                <label for="studentId">학번 *</label>
                 <input type="text" id="studentId" name="studentId" required 
                        placeholder="20241234">
             </div>
@@ -269,119 +300,129 @@
             <div class="interest-section">
                 <h3>관심도를 선택해주세요!</h3>
                 <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
-                    Select your interest level for each activity!
+                    각 항목에 대한 여러분의 관심도를 알려주세요
                 </p>
 
                 <div class="interest-item">
-                    <div class="interest-item-title">🍜 전통 음식 체험 / Traditional Food Experience</div>
+                    <div class="interest-item-title">🍜 전통 음식 체험</div>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn very-high" data-category="food" data-value="5">
-                            매우 관심<br>Very High
+                            매우 관심
                         </button>
                         <button type="button" class="rating-btn high" data-category="food" data-value="4">
-                            관심<br>High
+                            관심
                         </button>
                         <button type="button" class="rating-btn medium" data-category="food" data-value="3">
-                            보통<br>Medium
+                            보통
                         </button>
                         <button type="button" class="rating-btn low" data-category="food" data-value="2">
-                            약간<br>Low
+                            약간
                         </button>
                     </div>
                 </div>
 
                 <div class="interest-item">
-                    <div class="interest-item-title">🎨 문화 전시회 / Pavilion Exhibition</div>
+                    <div class="interest-item-title">🎨 문화 전시회</div>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn very-high" data-category="exhibition" data-value="5">
-                            매우 관심<br>Very High
+                            매우 관심
                         </button>
                         <button type="button" class="rating-btn high" data-category="exhibition" data-value="4">
-                            관심<br>High
+                            관심
                         </button>
                         <button type="button" class="rating-btn medium" data-category="exhibition" data-value="3">
-                            보통<br>Medium
+                            보통
                         </button>
                         <button type="button" class="rating-btn low" data-category="exhibition" data-value="2">
-                            약간<br>Low
+                            약간
                         </button>
                     </div>
                 </div>
 
                 <div class="interest-item">
-                    <div class="interest-item-title">🎭 재능 경연대회 / Talent Competition</div>
+                    <div class="interest-item-title">🎭 재능 경연대회</div>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn very-high" data-category="talent" data-value="5">
-                            매우 관심<br>Very High
+                            매우 관심
                         </button>
                         <button type="button" class="rating-btn high" data-category="talent" data-value="4">
-                            관심<br>High
+                            관심
                         </button>
                         <button type="button" class="rating-btn medium" data-category="talent" data-value="3">
-                            보통<br>Medium
+                            보통
                         </button>
                         <button type="button" class="rating-btn low" data-category="talent" data-value="2">
-                            약간<br>Low
+                            약간
                         </button>
                     </div>
                 </div>
 
                 <div class="interest-item">
-                    <div class="interest-item-title">📸 사진/영상 촬영 / Photo/Video Opportunities</div>
+                    <div class="interest-item-title">📸 사진/영상 촬영</div>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn very-high" data-category="photo" data-value="5">
-                            매우 관심<br>Very High
+                            매우 관심
                         </button>
                         <button type="button" class="rating-btn high" data-category="photo" data-value="4">
-                            관심<br>High
+                            관심
                         </button>
                         <button type="button" class="rating-btn medium" data-category="photo" data-value="3">
-                            보통<br>Medium
+                            보통
                         </button>
                         <button type="button" class="rating-btn low" data-category="photo" data-value="2">
-                            약간<br>Low
+                            약간
                         </button>
                     </div>
                 </div>
 
                 <div class="interest-item">
-                    <div class="interest-item-title">🎁 경품 추첨 / Prize Draw</div>
+                    <div class="interest-item-title">🎁 경품 추첨</div>
                     <div class="rating-buttons">
                         <button type="button" class="rating-btn very-high" data-category="prize" data-value="5">
-                            매우 관심<br>Very High
+                            매우 관심
                         </button>
                         <button type="button" class="rating-btn high" data-category="prize" data-value="4">
-                            관심<br>High
+                            관심
                         </button>
                         <button type="button" class="rating-btn medium" data-category="prize" data-value="3">
-                            보통<br>Medium
+                            보통
                         </button>
                         <button type="button" class="rating-btn low" data-category="prize" data-value="2">
-                            약간<br>Low
+                            약간
                         </button>
                     </div>
                 </div>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
-                제출하기 / Submit Survey
+                제출하기
             </button>
         </form>
 
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>제출 중입니다...</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <strong>오류 발생</strong>
+            <p id="errorText"></p>
+        </div>
+
         <div class="success-message" id="successMessage">
             <div class="emoji">🎉</div>
-            <h2>제출 완료! / Submitted Successfully!</h2>
+            <h2>제출 완료!</h2>
             <p>소중한 의견 감사합니다!</p>
-            <p>Thank you for your participation!</p>
             <p style="margin-top: 15px; font-weight: bold;">
-                11월 27-28일에 만나요! 🌍<br>
-                See you on Nov 27-28! 🌍
+                11월 27-28일에 만나요! 🌍
             </p>
         </div>
     </div>
 
     <script>
-        // 관심도 버튼 선택 기능
+        // ⚠️ 여기에 Google Apps Script Web App URL을 입력하세요
+        const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
         const ratingButtons = document.querySelectorAll('.rating-btn');
         const surveyData = {
             food: null,
@@ -397,16 +438,13 @@
                 const category = this.dataset.category;
                 const value = this.dataset.value;
                 
-                // 같은 카테고리의 다른 버튼들 선택 해제
                 document.querySelectorAll(`[data-category="${category}"]`).forEach(btn => {
                     btn.classList.remove('selected');
                 });
                 
-                // 현재 버튼 선택
                 this.classList.add('selected');
                 surveyData[category] = value;
                 
-                // 제출 버튼 활성화 확인
                 checkFormCompletion();
             });
         });
@@ -417,49 +455,72 @@
             const allRatingsSelected = Object.values(surveyData).every(val => val !== null);
             
             const submitBtn = document.getElementById('submitBtn');
-            if (name && id && allRatingsSelected) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
+            submitBtn.disabled = !(name && id && allRatingsSelected);
         }
 
-        // 입력 필드 변경 감지
         document.getElementById('studentName').addEventListener('input', checkFormCompletion);
         document.getElementById('studentId').addEventListener('input', checkFormCompletion);
 
-        // 폼 제출 처리
-        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // URL 체크
+            if (SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                showError('Google Sheets URL이 설정되지 않았습니다.');
+                return;
+            }
             
             const formData = {
                 timestamp: new Date().toISOString(),
                 studentName: document.getElementById('studentName').value.trim(),
                 studentId: document.getElementById('studentId').value.trim(),
-                interests: surveyData
+                foodInterest: surveyData.food,
+                exhibitionInterest: surveyData.exhibition,
+                talentInterest: surveyData.talent,
+                photoInterest: surveyData.photo,
+                prizeInterest: surveyData.prize
             };
             
-            // 콘솔에 데이터 출력 (실제로는 서버로 전송)
-            console.log('Survey Data:', formData);
-            
-            // 성공 메시지 표시
+            // 로딩 표시
             document.getElementById('surveyForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
             
-            // 로컬 스토리지에 저장 (데모용)
-            const existingData = JSON.parse(localStorage.getItem('cultureExpoSurveys') || '[]');
-            existingData.push(formData);
-            localStorage.setItem('cultureExpoSurveys', JSON.stringify(existingData));
-            
-            // 실제 구현시에는 여기서 서버로 데이터 전송
-            // fetch('/api/submit-survey', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(formData)
-            // });
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // no-cors 모드에서는 응답을 확인할 수 없으므로 성공으로 간주
+                showSuccess();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
         });
 
-        // 초기 상태에서 제출 버튼 비활성화
+        function showSuccess() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('surveyForm').style.display = 'block';
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('errorMessage').style.display = 'none';
+            }, 5000);
+        }
+
+        // 초기 상태
         document.getElementById('submitBtn').disabled = true;
     </script>
 </body>
