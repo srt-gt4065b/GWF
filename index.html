@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woosong Culture EXPO 2025 - 사전 관심도 조사</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .event-info {
+            background: #fff3cd;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+        }
+
+        .event-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .event-info strong {
+            color: #d39e00;
+        }
+
+        .form-section {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .interest-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .interest-section h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .interest-section h3::before {
+            content: "🎯";
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .interest-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .interest-item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .rating-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .rating-btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .rating-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .rating-btn.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            font-weight: bold;
+        }
+
+        .rating-btn.very-high.selected {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-color: #11998e;
+        }
+
+        .rating-btn.high.selected {
+            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            border-color: #00b09b;
+        }
+
+        .rating-btn.medium.selected {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-color: #f093fb;
+        }
+
+        .rating-btn.low.selected {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            border-color: #fa709a;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(17, 153, 142, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message h2 {
+            margin-bottom: 10px;
+        }
+
+        .emoji {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .rating-buttons {
+                flex-direction: column;
+            }
+            
+            .rating-btn {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 WOOSONG CULTURE EXPO 🌍</h1>
+            <p>Experience the World at Woosong!</p>
+        </div>
+
+        <div class="event-info">
+            <p><strong>📅 Date:</strong> November 27-28, 2025</p>
+            <p><strong>⏰ Time:</strong> 14:00 - 18:00 PM</p>
+            <p><strong>📍 Location:</strong> Endicott(W19) Yard</p>
+            <p><strong>✨ All Woosong University Students are Invited!</strong></p>
+        </div>
+
+        <form id="surveyForm" class="form-section">
+            <div class="form-group">
+                <label for="studentName">이름 / Name *</label>
+                <input type="text" id="studentName" name="studentName" required 
+                       placeholder="홍길동 / Hong Gildong">
+            </div>
+
+            <div class="form-group">
+                <label for="studentId">학번 / Student ID *</label>
+                <input type="text" id="studentId" name="studentId" required 
+                       placeholder="20241234">
+            </div>
+
+            <div class="interest-section">
+                <h3>관심도를 선택해주세요!</h3>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                    Select your interest level for each activity!
+                </p>
+
+                <div class="interest-item">
+                    <div class="interest-item-title">🍜 전통 음식 체험 / Traditional Food Experience</div>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn very-high" data-category="food" data-value="5">
+                            매우 관심<br>Very High
+                        </button>
+                        <button type="button" class="rating-btn high" data-category="food" data-value="4">
+                            관심<br>High
+                        </button>
+                        <button type="button" class="rating-btn medium" data-category="food" data-value="3">
+                            보통<br>Medium
+                        </button>
+                        <button type="button" class="rating-btn low" data-category="food" data-value="2">
+                            약간<br>Low
+                        </button>
+                    </div>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-item-title">🎨 문화 전시회 / Pavilion Exhibition</div>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn very-high" data-category="exhibition" data-value="5">
+                            매우 관심<br>Very High
+                        </button>
+                        <button type="button" class="rating-btn high" data-category="exhibition" data-value="4">
+                            관심<br>High
+                        </button>
+                        <button type="button" class="rating-btn medium" data-category="exhibition" data-value="3">
+                            보통<br>Medium
+                        </button>
+                        <button type="button" class="rating-btn low" data-category="exhibition" data-value="2">
+                            약간<br>Low
+                        </button>
+                    </div>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-item-title">🎭 재능 경연대회 / Talent Competition</div>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn very-high" data-category="talent" data-value="5">
+                            매우 관심<br>Very High
+                        </button>
+                        <button type="button" class="rating-btn high" data-category="talent" data-value="4">
+                            관심<br>High
+                        </button>
+                        <button type="button" class="rating-btn medium" data-category="talent" data-value="3">
+                            보통<br>Medium
+                        </button>
+                        <button type="button" class="rating-btn low" data-category="talent" data-value="2">
+                            약간<br>Low
+                        </button>
+                    </div>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-item-title">📸 사진/영상 촬영 / Photo/Video Opportunities</div>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn very-high" data-category="photo" data-value="5">
+                            매우 관심<br>Very High
+                        </button>
+                        <button type="button" class="rating-btn high" data-category="photo" data-value="4">
+                            관심<br>High
+                        </button>
+                        <button type="button" class="rating-btn medium" data-category="photo" data-value="3">
+                            보통<br>Medium
+                        </button>
+                        <button type="button" class="rating-btn low" data-category="photo" data-value="2">
+                            약간<br>Low
+                        </button>
+                    </div>
+                </div>
+
+                <div class="interest-item">
+                    <div class="interest-item-title">🎁 경품 추첨 / Prize Draw</div>
+                    <div class="rating-buttons">
+                        <button type="button" class="rating-btn very-high" data-category="prize" data-value="5">
+                            매우 관심<br>Very High
+                        </button>
+                        <button type="button" class="rating-btn high" data-category="prize" data-value="4">
+                            관심<br>High
+                        </button>
+                        <button type="button" class="rating-btn medium" data-category="prize" data-value="3">
+                            보통<br>Medium
+                        </button>
+                        <button type="button" class="rating-btn low" data-category="prize" data-value="2">
+                            약간<br>Low
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                제출하기 / Submit Survey
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <div class="emoji">🎉</div>
+            <h2>제출 완료! / Submitted Successfully!</h2>
+            <p>소중한 의견 감사합니다!</p>
+            <p>Thank you for your participation!</p>
+            <p style="margin-top: 15px; font-weight: bold;">
+                11월 27-28일에 만나요! 🌍<br>
+                See you on Nov 27-28! 🌍
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 관심도 버튼 선택 기능
+        const ratingButtons = document.querySelectorAll('.rating-btn');
+        const surveyData = {
+            food: null,
+            exhibition: null,
+            talent: null,
+            photo: null,
+            prize: null
+        };
+
+        ratingButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.dataset.category;
+                const value = this.dataset.value;
+                
+                // 같은 카테고리의 다른 버튼들 선택 해제
+                document.querySelectorAll(`[data-category="${category}"]`).forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+                
+                // 현재 버튼 선택
+                this.classList.add('selected');
+                surveyData[category] = value;
+                
+                // 제출 버튼 활성화 확인
+                checkFormCompletion();
+            });
+        });
+
+        function checkFormCompletion() {
+            const name = document.getElementById('studentName').value.trim();
+            const id = document.getElementById('studentId').value.trim();
+            const allRatingsSelected = Object.values(surveyData).every(val => val !== null);
+            
+            const submitBtn = document.getElementById('submitBtn');
+            if (name && id && allRatingsSelected) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // 입력 필드 변경 감지
+        document.getElementById('studentName').addEventListener('input', checkFormCompletion);
+        document.getElementById('studentId').addEventListener('input', checkFormCompletion);
+
+        // 폼 제출 처리
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                timestamp: new Date().toISOString(),
+                studentName: document.getElementById('studentName').value.trim(),
+                studentId: document.getElementById('studentId').value.trim(),
+                interests: surveyData
+            };
+            
+            // 콘솔에 데이터 출력 (실제로는 서버로 전송)
+            console.log('Survey Data:', formData);
+            
+            // 성공 메시지 표시
+            document.getElementById('surveyForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // 로컬 스토리지에 저장 (데모용)
+            const existingData = JSON.parse(localStorage.getItem('cultureExpoSurveys') || '[]');
+            existingData.push(formData);
+            localStorage.setItem('cultureExpoSurveys', JSON.stringify(existingData));
+            
+            // 실제 구현시에는 여기서 서버로 데이터 전송
+            // fetch('/api/submit-survey', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+        });
+
+        // 초기 상태에서 제출 버튼 비활성화
+        document.getElementById('submitBtn').disabled = true;
+    </script>
+</body>
+</html>
